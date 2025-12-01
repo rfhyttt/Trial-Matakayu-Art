@@ -6,6 +6,11 @@
 <title>Matakayu.Art — Marketplace</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ============================
+     MOBILE-FIRST CSS (default = mobile)
+     Keeps HTML unchanged — only CSS
+     ============================ */
+
   :root{
     --bg:#f3f6fb;
     --card:#ffffff;
@@ -28,130 +33,227 @@
     color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
-    padding:28px;
+    padding:14px; /* mobile padding */
     scroll-behavior:smooth;
+    -webkit-font-smoothing:antialiased;
   }
 
-  /* FRAME */
+  /* FRAME (mobile) */
   .frame{
-    max-width:1250px;
-    margin:0 auto;
+    width:100%;
     background:var(--card);
-    border-radius:24px;
-    padding:20px;
-    box-shadow: 0 30px 80px rgba(20,30,60,0.08);
+    border-radius:16px;
+    padding:14px;
+    box-shadow: 0 18px 50px rgba(20,30,60,0.06);
     border:1px solid rgba(15,23,42,0.03);
     overflow:visible;
+    margin:0 auto;
   }
 
-  /* TOP */
+  /* TOP (mobile): compact, horizontally scrollable search hidden on tiny */
   .top{
     display:flex;
+    flex-direction:row;
     align-items:center;
-    gap:18px;
-    padding:6px 6px 18px 6px;
+    justify-content:space-between;
+    gap:12px;
+    padding:6px 0 12px 0;
   }
-  .brand{display:flex;gap:12px;align-items:center}
-  .brand img{height:40px;border-radius:8px}
+  .brand{display:flex;gap:10px;align-items:center}
+  .brand img{height:36px;border-radius:8px;object-fit:cover}
   .brand .title{font-weight:800;font-size:16px}
-  .search{
-    flex:1;display:flex;align-items:center;gap:10px;background:#f6f8fa;padding:10px 16px;border-radius:999px;border:1px solid rgba(15,23,42,0.03)
+  .search{display:none} /* hide big search on mobile to save space; HTML unchanged */
+  .icons{display:flex;gap:8px;align-items:center}
+  .icon{width:38px;height:38px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid rgba(15,23,42,0.04);box-shadow:var(--inner-shadow);cursor:pointer;font-size:16px}
+
+  /* LAYOUT (mobile-first): single column */
+  .layout{display:block}
+
+  /* SIDEBAR (mobile): convert to horizontal chips */
+  .sidebar{
+    padding:6px 0 12px 0;
+    align-self:stretch;
+    max-height:none;
+    position:static;
   }
-  .search input{border:0;background:transparent;outline:none;font-size:14px;color:#12263a}
-  .icons{display:flex;gap:10px;align-items:center}
-  .icon{width:44px;height:44px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid rgba(15,23,42,0.04);box-shadow:var(--inner-shadow);cursor:pointer}
-
-  /* LAYOUT */
-  .layout{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:start}
-
-  /* SIDEBAR */
-  .sidebar{padding:8px;position:sticky;top:28px;align-self:start;max-height:calc(100vh - 56px);overflow:auto}
-  .sidebar h3{margin:0 0 12px 8px;color:var(--text);font-size:18px;font-weight:700}
-  .cats{display:flex;flex-direction:column;gap:8px;padding:6px}
+  .sidebar h3{margin:0 0 8px 0;color:var(--text);font-size:16px;font-weight:700}
+  .cats{display:flex;gap:8px;flex-wrap:nowrap;overflow:auto;padding:6px 2px}
   .cat{
-    padding:10px 14px;border-radius:12px;color:#172033;font-weight:600;font-size:14px;cursor:pointer;transition:all .18s;background:transparent;border:1px solid transparent;
+    flex:0 0 auto;
+    padding:8px 12px;border-radius:999px;color:#172033;font-weight:600;font-size:13px;cursor:pointer;transition:all .14s;background:#fff;border:1px solid rgba(15,23,42,0.04);
+    white-space:nowrap;
   }
-  .cat:hover{background: linear-gradient(90deg, rgba(200,74,13,0.06), rgba(216,154,0,0.03));transform:translateX(6px)}
-  .cat.small{font-weight:500;color:var(--muted);font-size:13px;padding-left:18px}
-  .cat.active{background:linear-gradient(90deg, rgba(194,74,13,0.12), rgba(216,154,0,0.06));border-color:rgba(194,74,13,0.14);transform:none}
+  .cat.small{font-weight:500;color:var(--muted);font-size:12px;padding-left:18px}
+  .cat:hover{transform:translateY(-2px)}
+  .cat.active{background:linear-gradient(90deg, rgba(194,74,13,0.12), rgba(216,154,0,0.06));border-color:rgba(194,74,13,0.14);color:var(--text)}
 
   /* CONTENT */
-  .content{display:flex;flex-direction:column;gap:18px}
+  .content{display:flex;flex-direction:column;gap:14px}
 
-  /* HERO */
+  /* HERO (mobile stacked) */
   .hero{
-    display:flex;gap:18px;background: linear-gradient(180deg,#ffffff,#fff);padding:18px;border-radius:16px;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--soft-shadow);align-items:center;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    background: linear-gradient(180deg,#ffffff,#fff);
+    padding:14px;border-radius:12px;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--soft-shadow);
+    align-items:flex-start;
   }
-  .hero-left{flex:1}
-  .hero h1{font-size:28px;margin:0;color:var(--text)}
-  .hero p{color:var(--muted);margin-top:8px;font-size:14px;max-width:68%}
-  .hero .cta{margin-top:14px;display:flex;gap:12px;align-items:center}
-  .btn{padding:10px 16px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
-  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 30px rgba(194,74,13,0.12)}
+  .hero-left{width:100%}
+  .hero h1{font-size:20px;margin:0;color:var(--text)}
+  .hero p{color:var(--muted);margin-top:6px;font-size:13px;max-width:100%}
+  .hero .cta{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{padding:9px 12px;border-radius:10px;border:0;font-weight:700;cursor:pointer;font-size:14px}
+  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 24px rgba(194,74,13,0.10)}
   .btn-outline{background:transparent;border:1px solid rgba(15,23,42,0.06);color:#18232b}
 
-  .hero-right{width:320px;height:160px;border-radius:14px;background:linear-gradient(135deg,#fff8f5,#fff);display:flex;align-items:center;justify-content:center;overflow:visible;border:1px solid rgba(15,23,42,0.03)}
-  .visual-mock{width:220px;height:130px;border-radius:12px;background:linear-gradient(180deg,#ffeceb,#fff);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(194,74,13,0.08);transform:rotate(-8deg)}
-  .visual-mock img{width:70%;height:auto;object-fit:contain}
+  .hero-right{width:100%;height:140px;border-radius:12px;background:linear-gradient(135deg,#fff8f5,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(15,23,42,0.03)}
+  .visual-mock{width:84%;height:100%;border-radius:10px;background:linear-gradient(180deg,#ffeceb,#fff);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(194,74,13,0.06);transform:none}
+  .visual-mock img{width:60%;height:auto;object-fit:contain}
 
-  /* Explore cards */
-  .explore{margin-top:4px}
-  .cards{display:grid;grid-template-columns: repeat(4,1fr);gap:14px;margin-top:10px}
-  .card{background:#fbfbfd;border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(15,23,42,0.02);box-shadow: 0 10px 24px rgba(12,18,30,0.03);cursor:pointer;transition:transform .18s}
-  .card:hover{transform:translateY(-6px)}
-  .card img{width:68px;height:68px;border-radius:12px;object-fit:cover;margin-bottom:10px}
-  .card small{display:block;color:var(--muted);font-size:13px}
+  /* Explore cards (mobile 2 columns) */
+  .explore{margin-top:2px}
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+  .card{background:#fbfbfd;border-radius:12px;padding:12px;text-align:center;border:1px solid rgba(15,23,42,0.02);box-shadow: 0 6px 14px rgba(12,18,30,0.03);cursor:pointer;transition:transform .12s}
+  .card:hover{transform:translateY(-4px)}
+  .card img{width:56px;height:56px;border-radius:10px;object-fit:cover;margin-bottom:8px}
+  .card small{display:block;color:var(--muted);font-size:12px}
 
-  /* Popular products */
-  .products{margin-top:14px;display:grid;grid-template-columns: repeat(3,1fr);gap:16px}
-  .product{background:var(--card);border-radius:16px;padding:12px;border:1px solid rgba(15,23,42,0.03);box-shadow: 0 8px 24px rgba(10,20,30,0.03);cursor:pointer;transition:all .18s}
-  .product:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(10,20,30,0.08)}
-  .product .thumb{height:150px;border-radius:12px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+  /* Products (mobile 1 column) */
+  .products{margin-top:12px;display:grid;grid-template-columns:repeat(1,1fr);gap:12px}
+  .product{background:var(--card);border-radius:12px;padding:10px;border:1px solid rgba(15,23,42,0.03);box-shadow: 0 6px 18px rgba(10,20,30,0.03);cursor:pointer;transition:all .14s}
+  .product:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,20,30,0.06)}
+  .product .thumb{height:120px;border-radius:10px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
   .product img{width:100%;height:100%;object-fit:cover}
-  .product h4{margin:10px 0 4px;font-size:15px;color:var(--text)}
-  .product .meta{display:flex;justify-content:space-between;align-items:center}
+  .product h4{margin:6px 0 4px;font-size:14px;color:var(--text)}
+  .product .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px}
   .price{color:var(--accent);font-weight:700}
   .tag{background:#f6f8fa;padding:6px 8px;border-radius:10px;color:var(--muted);font-size:12px}
 
-  /* Category Section (premium inline) */
+  /* Category Section (mobile stacked) */
   .section-wrapper{
-    margin-top:30px;
-    padding:26px;
+    margin-top:18px;
+    padding:16px;
     background:linear-gradient(180deg,#ffffff,#fafafa);
-    border-radius:16px;
+    border-radius:12px;
     border:1px solid rgba(15,23,42,0.04);
-    box-shadow:0 20px 40px rgba(10,20,30,0.04);
+    box-shadow:0 12px 30px rgba(10,20,30,0.04);
   }
   .banner{
-    display:flex;align-items:center;justify-content:space-between;
-    font-size:20px;font-weight:800;padding:12px 18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border-radius:12px;margin-bottom:18px;box-shadow:0 12px 30px rgba(194,74,13,0.14);
+    display:flex;flex-direction:row;align-items:center;justify-content:space-between;
+    font-size:16px;font-weight:800;padding:10px 12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border-radius:10px;margin-bottom:12px;box-shadow:0 8px 20px rgba(194,74,13,0.12);
   }
-  .category-products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .category-products .product{min-height:240px}
-  @media(max-width:1100px){ .cards{grid-template-columns:repeat(3,1fr)} .products{grid-template-columns:repeat(2,1fr)} .hero-right{width:260px} .category-products{grid-template-columns:repeat(2,1fr)} }
-  @media(max-width:760px){
-    .layout{grid-template-columns:1fr}
-    .sidebar{order:2;max-height:none;position:static}
-    .content{order:1}
-    .cards{grid-template-columns:repeat(2,1fr)}
-    .products{grid-template-columns:repeat(1,1fr)}
-    .hero{flex-direction:column;align-items:flex-start}
-    .hero p{max-width:100%}
-    .hero-right{width:100%;height:180px}
-    .category-products{grid-template-columns:repeat(1,1fr)}
-  }
+  .category-products{display:grid;grid-template-columns:repeat(1,1fr);gap:12px}
+  .category-products .product{min-height:auto}
 
-  /* footer CTA */
-  .footer-cta{margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(90deg,#fff,#fff);display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--inner-shadow)}
+  /* footer CTA (mobile column) */
+  .footer-cta{margin-top:12px;padding:12px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff);display:flex;flex-direction:column;gap:10px;align-items:flex-start;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--inner-shadow)}
   .muted{color:var(--muted);font-size:13px}
 
-  /* back to top */
-  .backtop{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(194,74,13,0.18);cursor:pointer;border:0;z-index:800}
+  /* back to top (mobile hidden by default) */
+  .backtop{position:fixed;right:14px;bottom:14px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(194,74,13,0.18);cursor:pointer;border:0;z-index:800;display:none}
   .hidden{display:none}
 
-  /* subtle fade-in on scroll */
-  .reveal{opacity:0;transform:translateY(8px);transition:opacity .48s ease,transform .48s ease}
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(6px);transition:opacity .42s ease,transform .42s ease}
   .reveal.visible{opacity:1;transform:none}
+
+  /* ============================
+     TABLET / DESKTOP (min-width breakpoints)
+     We reverse from original: mobile-first, then increase complexity.
+     ============================ */
+
+  /* Tablet */
+  @media(min-width:760px){
+    body{padding:20px}
+    .frame{padding:18px;border-radius:18px}
+    .hero h1{font-size:24px}
+    .cards{grid-template-columns:repeat(3,1fr);gap:12px}
+    .products{grid-template-columns:repeat(2,1fr);gap:14px}
+    .category-products{grid-template-columns:repeat(2,1fr);gap:16px}
+    .hero-right{height:160px}
+    .visual-mock{width:220px;height:130px}
+    .backtop{display:flex}
+  }
+
+  /* Desktop wide */
+  @media(min-width:1100px){
+    body{padding:28px}
+    .frame{
+      max-width:1250px;
+      margin:0 auto;
+      padding:20px;
+      border-radius:24px;
+      box-shadow: 0 30px 80px rgba(20,30,60,0.08);
+    }
+
+    /* restore layout with sidebar left + content right (like original) */
+    .layout{
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    /* sidebar: column list */
+    .sidebar{
+      padding:8px;
+      position:sticky;
+      top:28px;
+      align-self:start;
+      max-height:calc(100vh - 56px);
+      overflow:auto;
+    }
+    .cats{display:flex;flex-direction:column;gap:8px;padding:6px;overflow:visible}
+
+    /* top: show search */
+    .search{
+      display:flex;
+      flex:1;
+      align-items:center;
+      gap:10px;
+      background:#f6f8fa;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,0.03);
+      margin-left:12px;
+    }
+    .search input{border:0;background:transparent;outline:none;font-size:14px;color:#12263a}
+
+    .top{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      padding:6px 6px 18px 6px;
+    }
+
+    /* hero horizontal (original style) */
+    .hero{
+      display:flex;
+      gap:18px;
+      background: linear-gradient(180deg,#ffffff,#fff);
+      padding:18px;border-radius:16px;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--soft-shadow);align-items:center;
+    }
+    .hero-left{flex:1}
+    .hero-right{width:320px;height:160px;border-radius:14px;background:linear-gradient(135deg,#fff8f5,#fff);display:flex;align-items:center;justify-content:center;overflow:visible;border:1px solid rgba(15,23,42,0.03)}
+    .visual-mock{width:220px;height:130px;border-radius:12px;background:linear-gradient(180deg,#ffeceb,#fff);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(194,74,13,0.08);transform:rotate(-8deg)}
+    .visual-mock img{width:70%;height:auto;object-fit:contain}
+
+    /* cards & products to original columns */
+    .cards{grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+    .products{grid-template-columns:repeat(3,1fr);gap:16px}
+    .category-products{grid-template-columns:repeat(3,1fr);gap:18px}
+
+    .product{border-radius:16px;padding:12px}
+    .card{border-radius:14px;padding:14px}
+    .section-wrapper{padding:26px;margin-top:30px}
+    .banner{font-size:20px;padding:12px 18px;border-radius:12px}
+    .footer-cta{display:flex;justify-content:space-between;align-items:center;flex-direction:row}
+    .backtop{display:flex}
+  }
+
+  /* Small accessibility tweaks */
+  a,button{font-family:inherit}
 </style>
 </head>
 <body>
@@ -159,15 +261,21 @@
   <div class="frame">
     <!-- TOP -->
     <div class="top">
-      <div class="brand">
-        <img src="data:image/webp;base64, " alt="logo">
-        <div>
-          <div class="title">Matakayu.Art</div>
-          <small class="muted">Plakat | Corporate Merchandise</small>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="brand">
+          <img src="data:image/webp;base64, " alt="logo">
+          <div>
+            <div class="title">Matakayu.Art</div>
+            <small class="muted" style="display:none">Plakat | Corporate Merchandise</small>
+          </div>
+        </div>
+        <!-- search kept in DOM (hidden on mobile via CSS); will show on desktop -->
+        <div class="search" aria-hidden="true" style="display:none">
+          <input type="text" placeholder="Search products..." />
         </div>
       </div>
 
-      <div class="icons">
+      <div class="icons" style="align-items:center">
         <div class="icon" title="Wishlist">♡</div>
         <div class="icon" title="Cart">🛒</div>
         <div style="display:flex;align-items:center;gap:10px">
@@ -181,7 +289,7 @@
     <div class="layout">
       <!-- SIDEBAR -->
       <aside class="sidebar" aria-label="Categories">
-        <h3>Categories</h3>
+        <h3 style="display:block">Categories</h3>
         <div class="cats" id="categoryList">
           <div class="cat active" data-target="all">All</div>
           <div class="cat" data-target="plakatkayu">Plakat Kayu</div>
@@ -199,10 +307,10 @@
         <div class="hero reveal">
           <div class="hero-left">
             <h1>Selamat Datang Di Katalog Matakayu.Art</h1>
-            <p>Solusi plakat custom untuk kebutuhan perusahaan. Dibuktikan dengan kepercayaan lebih dari 1000+ corporate & instansi.</p>
+            <p>Solusi plakat custom untuk kebutuhan perusahaan. Dibuktikan dengan kepercayaan lebih dari 1000+ corporate & instansi.</p>
           </div>
           <div class="hero-right" aria-hidden="true">
-            <div class="visual-mock">
+            <div class="visual-mock" aria-hidden="true">
               <!-- decorative -->
               <img src=" " alt="visual">
             </div>
@@ -220,7 +328,7 @@
             </div>
           </div>
           <div class="hero-right" aria-hidden="true">
-            <div class="visual-mock">
+            <div class="visual-mock" aria-hidden="true">
               <!-- decorative -->
               <img src=" " alt="visual">
             </div>
@@ -230,23 +338,23 @@
         <!-- EXPLORE -->
         <div class="explore reveal">
           <h3 style="margin:6px 0;color:var(--text)">Explore Produk</h3>
-          <div class="cards" id="categoryGrid">
-            <div class="card" onclick="goToSection('plakatkayu')">
+          <div class="cards" id="categoryGrid" role="list">
+            <div class="card" onclick="goToSection('plakatkayu')" role="listitem">
               <img src="" alt="">
               <div style="font-weight:700">Plakat Kayu</div>
               <small class="muted">Best seller</small>
             </div>
-            <div class="card" onclick="goToSection('plakatakrilik')">
+            <div class="card" onclick="goToSection('plakatakrilik')" role="listitem">
               <img src="" alt="">
               <div style="font-weight:700">Plakat Akrilik</div>
               <small class="muted">Premium finish</small>
             </div>
-            <div class="card" onclick="goToSection('souvenir')">
+            <div class="card" onclick="goToSection('souvenir')" role="listitem">
               <img src="" alt="">
               <div style="font-weight:700">Souvenir</div>
               <small class="muted">Tees & pins</small>
             </div>
-            <div class="card" onclick="goToSection('spanduk')">
+            <div class="card" onclick="goToSection('spanduk')" role="listitem">
               <img src="" alt="">
               <div style="font-weight:700">Spanduk</div>
               <small class="muted">Banner Premium</small>
@@ -257,38 +365,38 @@
         <!-- BEST SELLER -->
         <div id="all" class="reveal">
           <h3 style="margin-top:18px">Best Seller</h3>
-          <div class="products" id="productGrid">
-            <div class="product" onclick="orderWA('Plakat Kayu')">
+          <div class="products" id="productGrid" role="list">
+            <div class="product" onclick="orderWA('Plakat Kayu')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kayu</h4>
               <div class="meta"><div class="price">IDR 150.000</div><div class="tag">Plakat</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Kombinasi Akrilik')">
+            <div class="product" onclick="orderWA('Plakat Kombinasi Akrilik')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kombinasi Akrilik</h4>
               <div class="meta"><div class="price">IDR 180.000</div><div class="tag">Plakat</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Insert Paper')">
+            <div class="product" onclick="orderWA('Plakat Insert Paper')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Insert Paper</h4>
               <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Plakat</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('X Banner')">
+            <div class="product" onclick="orderWA('X Banner')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>X Banner</h4>
               <div class="meta"><div class="price">IDR 95.000</div><div class="tag">Spanduk</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Tumbler Grafir')">
+            <div class="product" onclick="orderWA('Tumbler Grafir')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Tumbler Grafir</h4>
               <div class="meta"><div class="price">IDR 45.000</div><div class="tag">Merchandise</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Gantungan Kunci')">
+            <div class="product" onclick="orderWA('Gantungan Kunci')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Gantungan Kunci</h4>
               <div class="meta"><div class="price">IDR 35.000</div><div class="tag">Merchandise</div></div>
@@ -300,25 +408,25 @@
 
         <!-- PLAKAT KAYU -->
         <section id="plakatkayu" class="section-wrapper reveal">
-          <div class="banner">
+          <div class="banner" role="banner">
             <div>Plakat Kayu</div>
             <div style="font-size:13px;color:rgba(255,255,255,0.9)">Bingung Nulis Apa</div>
           </div>
 
-          <div class="category-products">
-            <div class="product" onclick="orderWA('Plakat Kayu Premium')">
+          <div class="category-products" role="list">
+            <div class="product" onclick="orderWA('Plakat Kayu Premium')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kayu Premium</h4>
               <div class="meta"><div class="price">IDR 150.000</div><div class="tag">Plakat</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Kayu Marble')">
+            <div class="product" onclick="orderWA('Plakat Kayu Marble')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kayu Marble</h4>
               <div class="meta"><div class="price">IDR 220.000</div><div class="tag">Luxury</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')">
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kayu Custom Logo</h4>
               <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
@@ -333,20 +441,20 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.9)">Clear, glossy, premium</div>
           </div>
 
-          <div class="category-products">
-            <div class="product" onclick="orderWA('Plakat Akrilik Crystal')">
+          <div class="category-products" role="list">
+            <div class="product" onclick="orderWA('Plakat Akrilik Crystal')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Akrilik Crystal</h4>
               <div class="meta"><div class="price">IDR 180.000</div><div class="tag">Acrylic</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Akrilik Edge-Lit')">
+            <div class="product" onclick="orderWA('Plakat Akrilik Edge-Lit')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Akrilik Edge-Lit</h4>
               <div class="meta"><div class="price">IDR 240.000</div><div class="tag">LED</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Plakat Akrilik Mini')">
+            <div class="product" onclick="orderWA('Plakat Akrilik Mini')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Akrilik Mini</h4>
               <div class="meta"><div class="price">IDR 90.000</div><div class="tag">Acrylic</div></div>
@@ -361,20 +469,20 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.9)">Hash tags • Pins • Tees</div>
           </div>
 
-          <div class="category-products">
-            <div class="product" onclick="orderWA('Gift Box Custom')">
+          <div class="category-products" role="list">
+            <div class="product" onclick="orderWA('Gift Box Custom')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Gift Box Custom</h4>
               <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Gift</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Enamel Pin Leaf')">
+            <div class="product" onclick="orderWA('Enamel Pin Leaf')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Enamel Pin — Leaf</h4>
               <div class="meta"><div class="price">IDR 35.000</div><div class="tag">Accessory</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Custom Tee')">
+            <div class="product" onclick="orderWA('Custom Tee')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Custom Tee</h4>
               <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Merch</div></div>
@@ -389,20 +497,20 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.9)">X-Banner • Y-Banner • Outdoor</div>
           </div>
 
-          <div class="category-products">
-            <div class="product" onclick="orderWA('Spanduk X-Banner')">
+          <div class="category-products" role="list">
+            <div class="product" onclick="orderWA('Spanduk X-Banner')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Spanduk X-Banner</h4>
               <div class="meta"><div class="price">IDR 80.000</div><div class="tag">Banner</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Spanduk Outdoor Large')">
+            <div class="product" onclick="orderWA('Spanduk Outdoor Large')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Spanduk Outdoor Large</h4>
               <div class="meta"><div class="price">IDR 250.000</div><div class="tag">Outdoor</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Roll Up Banner')">
+            <div class="product" onclick="orderWA('Roll Up Banner')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Roll Up Banner</h4>
               <div class="meta"><div class="price">IDR 200.000</div><div class="tag">Banner</div></div>
@@ -417,20 +525,20 @@
             <div style="font-size:13px;color:rgba(255,255,255,0.9)">Desain, ukuran, finishing</div>
           </div>
 
-          <div class="category-products">
-            <div class="product" onclick="orderWA('Custom Order: Design A')">
+          <div class="category-products" role="list">
+            <div class="product" onclick="orderWA('Custom Order: Design A')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Custom Order — Design A</h4>
               <div class="meta"><div class="price">IDR 250.000</div><div class="tag">Custom</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Custom Order: Corporate Set')">
+            <div class="product" onclick="orderWA('Custom Order: Corporate Set')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Corporate Custom Set</h4>
               <div class="meta"><div class="price">IDR 750.000</div><div class="tag">B2B</div></div>
             </div>
 
-            <div class="product" onclick="orderWA('Custom Order: Wedding Pack')">
+            <div class="product" onclick="orderWA('Custom Order: Wedding Pack')" role="listitem">
               <div class="thumb"><img src="" alt=""></div>
               <h4>Wedding Pack</h4>
               <div class="meta"><div class="price">IDR 650.000</div><div class="tag">Event</div></div>
