@@ -268,7 +268,7 @@
     <div class="layout">
       <!-- SIDEBAR -->
       <aside class="sidebar" aria-label="Categories">
-        <h3 style="display:block">Categories</h3>
+        <h3 style="display:block">Kategori</h3>
         <div class="cats" id="categoryList" role="tablist" aria-label="Product categories">
           <div class="cat active" data-target="all" role="tab" tabindex="0">All</div>
           <div class="cat" data-target="plakatkayu" role="tab" tabindex="0">Plakat Kayu</div>
@@ -299,8 +299,12 @@
         <!-- HERO -->
         <div class="hero reveal">
           <div class="hero-left">
-            <h1>BIG SALE! Matakayu.Art</h1>
-            <p>Quality custom plakat & merchandise — handcrafted, premium finish. Grab limited-time discounts and exclusive bundles.</p>
+            <h1>PROMO 12.12 Matakayu.Art!</h1>
+            <p>12.12, Let’s Glow Up Your Space!
+                Plakat aesthetic dari kayu dan akrilik?
+                Harga miring?
+                Yes, bestie!
+                Cuma hari ini, jangan sampai sold out lagi!</p>
             <div class="cta">
               <button class="btn btn-primary" onclick="goToSection('all')">Shop Now</button>
               <button class="btn btn-outline" onclick="openCustom()">Custom Order</button>
@@ -403,6 +407,48 @@
               <div class="thumb"><img src="" alt=""></div>
               <h4>Plakat Kayu Marble</h4>
               <div class="meta"><div class="price">IDR 220.000</div><div class="tag">Luxury</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
             </div>
 
             <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')" role="listitem">
@@ -532,7 +578,7 @@
             <div class="muted">Buka toko & jangkau ribuan pembeli</div>
           </div>
           <div>
-            <button class="btn btn-primary" onclick="openSeller()">Become Seller</button>
+            <button class="btn btn-primary" onclick="openSeller()">Become Reseller</button>
           </div>
         </div>
 
@@ -559,7 +605,8 @@
   }
 
   function openSeller(){
-    alert("Demo: buka halaman Seller Dashboard (fitur demo).");
+    const text = "Halo MataKayu.art, saya tertarik untuk menjadi reseller. Boleh diinformasikan syarat dan alur pendaftarannya?";
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, "_blank");
   }
 
   function goToSection(id){
