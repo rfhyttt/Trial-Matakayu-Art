@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Matakayu.Art — Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f6fb;
+    --card:#ffffff;
+    --muted:#9aa4b2;
+    --accent:#C24A0D;
+    --accent-2:#D89A00;
+    --glass: rgba(255,255,255,0.6);
+    --radius:18px;
+    --soft-shadow: 0 12px 30px rgba(18,30,60,0.06);
+    --inner-shadow: 0 6px 18px rgba(18,30,60,0.04);
+    --text:#0b1724;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background: linear-gradient(180deg,#f7f9fc,var(--bg));
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px;
+    scroll-behavior:smooth;
+  }
+
+  /* FRAME */
+  .frame{
+    max-width:1250px;
+    margin:0 auto;
+    background:var(--card);
+    border-radius:24px;
+    padding:20px;
+    box-shadow: 0 30px 80px rgba(20,30,60,0.08);
+    border:1px solid rgba(15,23,42,0.03);
+    overflow:visible;
+  }
+
+  /* TOP */
+  .top{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:6px 6px 18px 6px;
+  }
+  .brand{display:flex;gap:12px;align-items:center}
+  .brand img{height:40px;border-radius:8px}
+  .brand .title{font-weight:800;font-size:16px}
+  .search{
+    flex:1;display:flex;align-items:center;gap:10px;background:#f6f8fa;padding:10px 16px;border-radius:999px;border:1px solid rgba(15,23,42,0.03)
+  }
+  .search input{border:0;background:transparent;outline:none;font-size:14px;color:#12263a}
+  .icons{display:flex;gap:10px;align-items:center}
+  .icon{width:44px;height:44px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;border:1px solid rgba(15,23,42,0.04);box-shadow:var(--inner-shadow);cursor:pointer}
+
+  /* LAYOUT */
+  .layout{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:start}
+
+  /* SIDEBAR */
+  .sidebar{padding:8px;position:sticky;top:28px;align-self:start;max-height:calc(100vh - 56px);overflow:auto}
+  .sidebar h3{margin:0 0 12px 8px;color:var(--text);font-size:18px;font-weight:700}
+  .cats{display:flex;flex-direction:column;gap:8px;padding:6px}
+  .cat{
+    padding:10px 14px;border-radius:12px;color:#172033;font-weight:600;font-size:14px;cursor:pointer;transition:all .18s;background:transparent;border:1px solid transparent;
+  }
+  .cat:hover{background: linear-gradient(90deg, rgba(200,74,13,0.06), rgba(216,154,0,0.03));transform:translateX(6px)}
+  .cat.small{font-weight:500;color:var(--muted);font-size:13px;padding-left:18px}
+  .cat.active{background:linear-gradient(90deg, rgba(194,74,13,0.12), rgba(216,154,0,0.06));border-color:rgba(194,74,13,0.14);transform:none}
+
+  /* CONTENT */
+  .content{display:flex;flex-direction:column;gap:18px}
+
+  /* HERO */
+  .hero{
+    display:flex;gap:18px;background: linear-gradient(180deg,#ffffff,#fff);padding:18px;border-radius:16px;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--soft-shadow);align-items:center;
+  }
+  .hero-left{flex:1}
+  .hero h1{font-size:28px;margin:0;color:var(--text)}
+  .hero p{color:var(--muted);margin-top:8px;font-size:14px;max-width:68%}
+  .hero .cta{margin-top:14px;display:flex;gap:12px;align-items:center}
+  .btn{padding:10px 16px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 30px rgba(194,74,13,0.12)}
+  .btn-outline{background:transparent;border:1px solid rgba(15,23,42,0.06);color:#18232b}
+
+  .hero-right{width:320px;height:160px;border-radius:14px;background:linear-gradient(135deg,#fff8f5,#fff);display:flex;align-items:center;justify-content:center;overflow:visible;border:1px solid rgba(15,23,42,0.03)}
+  .visual-mock{width:220px;height:130px;border-radius:12px;background:linear-gradient(180deg,#ffeceb,#fff);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px rgba(194,74,13,0.08);transform:rotate(-8deg)}
+  .visual-mock img{width:70%;height:auto;object-fit:contain}
+
+  /* Explore cards */
+  .explore{margin-top:4px}
+  .cards{display:grid;grid-template-columns: repeat(4,1fr);gap:14px;margin-top:10px}
+  .card{background:#fbfbfd;border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(15,23,42,0.02);box-shadow: 0 10px 24px rgba(12,18,30,0.03);cursor:pointer;transition:transform .18s}
+  .card:hover{transform:translateY(-6px)}
+  .card img{width:68px;height:68px;border-radius:12px;object-fit:cover;margin-bottom:10px}
+  .card small{display:block;color:var(--muted);font-size:13px}
+
+  /* Popular products */
+  .products{margin-top:14px;display:grid;grid-template-columns: repeat(3,1fr);gap:16px}
+  .product{background:var(--card);border-radius:16px;padding:12px;border:1px solid rgba(15,23,42,0.03);box-shadow: 0 8px 24px rgba(10,20,30,0.03);cursor:pointer;transition:all .18s}
+  .product:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(10,20,30,0.08)}
+  .product .thumb{height:150px;border-radius:12px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+  .product img{width:100%;height:100%;object-fit:cover}
+  .product h4{margin:10px 0 4px;font-size:15px;color:var(--text)}
+  .product .meta{display:flex;justify-content:space-between;align-items:center}
+  .price{color:var(--accent);font-weight:700}
+  .tag{background:#f6f8fa;padding:6px 8px;border-radius:10px;color:var(--muted);font-size:12px}
+
+  /* Category Section (premium inline) */
+  .section-wrapper{
+    margin-top:30px;
+    padding:26px;
+    background:linear-gradient(180deg,#ffffff,#fafafa);
+    border-radius:16px;
+    border:1px solid rgba(15,23,42,0.04);
+    box-shadow:0 20px 40px rgba(10,20,30,0.04);
+  }
+  .banner{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:20px;font-weight:800;padding:12px 18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;border-radius:12px;margin-bottom:18px;box-shadow:0 12px 30px rgba(194,74,13,0.14);
+  }
+  .category-products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .category-products .product{min-height:240px}
+  @media(max-width:1100px){ .cards{grid-template-columns:repeat(3,1fr)} .products{grid-template-columns:repeat(2,1fr)} .hero-right{width:260px} .category-products{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:760px){
+    .layout{grid-template-columns:1fr}
+    .sidebar{order:2;max-height:none;position:static}
+    .content{order:1}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .products{grid-template-columns:repeat(1,1fr)}
+    .hero{flex-direction:column;align-items:flex-start}
+    .hero p{max-width:100%}
+    .hero-right{width:100%;height:180px}
+    .category-products{grid-template-columns:repeat(1,1fr)}
+  }
+
+  /* footer CTA */
+  .footer-cta{margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(90deg,#fff,#fff);display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(15,23,42,0.03);box-shadow:var(--inner-shadow)}
+  .muted{color:var(--muted);font-size:13px}
+
+  /* back to top */
+  .backtop{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(194,74,13,0.18);cursor:pointer;border:0;z-index:800}
+  .hidden{display:none}
+
+  /* subtle fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(8px);transition:opacity .48s ease,transform .48s ease}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+  <div class="frame">
+    <!-- TOP -->
+    <div class="top">
+      <div class="brand">
+        <img src="data:image/webp;base64, " alt="logo">
+        <div>
+          <div class="title">Matakayu.Art</div>
+          <small class="muted">Plakat | Corporate Merchandise</small>
+        </div>
+      </div>
+
+      <div class="icons">
+        <div class="icon" title="Wishlist">♡</div>
+        <div class="icon" title="Cart">🛒</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="text-align:right;font-size:13px;font-weight:700">MatakayuArt</div>
+          <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent-2),#fff);display:flex;align-items:center;justify-content:center;color:#7a1b3a;font-weight:800">MA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" aria-label="Categories">
+        <h3>Categories</h3>
+        <div class="cats" id="categoryList">
+          <div class="cat active" data-target="all">All</div>
+          <div class="cat" data-target="plakatkayu">Plakat Kayu</div>
+          <div class="cat" data-target="plakatakrilik">Plakat Akrilik</div>
+          <div class="cat" data-target="souvenir">Souvenir</div>
+          <div class="cat" data-target="spanduk">Spanduk</div>
+          <div class="cat" data-target="customorders">Custom Orders</div>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <section class="content">
+
+        <!-- HERO -->
+        <div class="hero reveal">
+          <div class="hero-left">
+            <h1>Selamat Datang Di Katalog Matakayu.Art</h1>
+            <p>Solusi plakat custom untuk kebutuhan perusahaan. Dibuktikan dengan kepercayaan lebih dari 1000+ corporate & instansi.</p>
+          </div>
+          <div class="hero-right" aria-hidden="true">
+            <div class="visual-mock">
+              <!-- decorative -->
+              <img src=" " alt="visual">
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="hero reveal">
+          <div class="hero-left">
+            <h1>BIG SALE! Matakayu.Art</h1>
+            <p>Quality custom plakat & merchandise — handcrafted, premium finish. Grab limited-time discounts and exclusive bundles.</p>
+            <div class="cta">
+              <button class="btn btn-primary" onclick="goToSection('all')">Shop Now</button>
+              <button class="btn btn-outline" onclick="openCustom()">Custom Order</button>
+            </div>
+          </div>
+          <div class="hero-right" aria-hidden="true">
+            <div class="visual-mock">
+              <!-- decorative -->
+              <img src=" " alt="visual">
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPLORE -->
+        <div class="explore reveal">
+          <h3 style="margin:6px 0;color:var(--text)">Explore Produk</h3>
+          <div class="cards" id="categoryGrid">
+            <div class="card" onclick="goToSection('plakatkayu')">
+              <img src="" alt="">
+              <div style="font-weight:700">Plakat Kayu</div>
+              <small class="muted">Best seller</small>
+            </div>
+            <div class="card" onclick="goToSection('plakatakrilik')">
+              <img src="" alt="">
+              <div style="font-weight:700">Plakat Akrilik</div>
+              <small class="muted">Premium finish</small>
+            </div>
+            <div class="card" onclick="goToSection('souvenir')">
+              <img src="" alt="">
+              <div style="font-weight:700">Souvenir</div>
+              <small class="muted">Tees & pins</small>
+            </div>
+            <div class="card" onclick="goToSection('spanduk')">
+              <img src="" alt="">
+              <div style="font-weight:700">Spanduk</div>
+              <small class="muted">Banner Premium</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEST SELLER -->
+        <div id="all" class="reveal">
+          <h3 style="margin-top:18px">Best Seller</h3>
+          <div class="products" id="productGrid">
+            <div class="product" onclick="orderWA('Plakat Kayu')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu</h4>
+              <div class="meta"><div class="price">IDR 150.000</div><div class="tag">Plakat</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kombinasi Akrilik')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kombinasi Akrilik</h4>
+              <div class="meta"><div class="price">IDR 180.000</div><div class="tag">Plakat</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Insert Paper')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Insert Paper</h4>
+              <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Plakat</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('X Banner')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>X Banner</h4>
+              <div class="meta"><div class="price">IDR 95.000</div><div class="tag">Spanduk</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Tumbler Grafir')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Tumbler Grafir</h4>
+              <div class="meta"><div class="price">IDR 45.000</div><div class="tag">Merchandise</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Gantungan Kunci')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Gantungan Kunci</h4>
+              <div class="meta"><div class="price">IDR 35.000</div><div class="tag">Merchandise</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY SECTIONS (PREMIUM INLINE) -->
+
+        <!-- PLAKAT KAYU -->
+        <section id="plakatkayu" class="section-wrapper reveal">
+          <div class="banner">
+            <div>Plakat Kayu</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.9)">Bingung Nulis Apa</div>
+          </div>
+
+          <div class="category-products">
+            <div class="product" onclick="orderWA('Plakat Kayu Premium')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Premium</h4>
+              <div class="meta"><div class="price">IDR 150.000</div><div class="tag">Plakat</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Marble')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Marble</h4>
+              <div class="meta"><div class="price">IDR 220.000</div><div class="tag">Luxury</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Kayu Custom Logo')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Kayu Custom Logo</h4>
+              <div class="meta"><div class="price">IDR 175.000</div><div class="tag">Custom</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PLAKAT AKRILIK -->
+        <section id="plakatakrilik" class="section-wrapper reveal">
+          <div class="banner">
+            <div>Plakat Akrilik — Crystal Series</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.9)">Clear, glossy, premium</div>
+          </div>
+
+          <div class="category-products">
+            <div class="product" onclick="orderWA('Plakat Akrilik Crystal')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Akrilik Crystal</h4>
+              <div class="meta"><div class="price">IDR 180.000</div><div class="tag">Acrylic</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Akrilik Edge-Lit')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Akrilik Edge-Lit</h4>
+              <div class="meta"><div class="price">IDR 240.000</div><div class="tag">LED</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Plakat Akrilik Mini')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Plakat Akrilik Mini</h4>
+              <div class="meta"><div class="price">IDR 90.000</div><div class="tag">Acrylic</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SOUVENIR -->
+        <section id="souvenir" class="section-wrapper reveal">
+          <div class="banner">
+            <div>Souvenir — Gift & Merch</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.9)">Hash tags • Pins • Tees</div>
+          </div>
+
+          <div class="category-products">
+            <div class="product" onclick="orderWA('Gift Box Custom')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Gift Box Custom</h4>
+              <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Gift</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Enamel Pin Leaf')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Enamel Pin — Leaf</h4>
+              <div class="meta"><div class="price">IDR 35.000</div><div class="tag">Accessory</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Custom Tee')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Custom Tee</h4>
+              <div class="meta"><div class="price">IDR 120.000</div><div class="tag">Merch</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SPANDUK -->
+        <section id="spanduk" class="section-wrapper reveal">
+          <div class="banner">
+            <div>Spanduk — Banner Solutions</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.9)">X-Banner • Y-Banner • Outdoor</div>
+          </div>
+
+          <div class="category-products">
+            <div class="product" onclick="orderWA('Spanduk X-Banner')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Spanduk X-Banner</h4>
+              <div class="meta"><div class="price">IDR 80.000</div><div class="tag">Banner</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Spanduk Outdoor Large')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Spanduk Outdoor Large</h4>
+              <div class="meta"><div class="price">IDR 250.000</div><div class="tag">Outdoor</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Roll Up Banner')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Roll Up Banner</h4>
+              <div class="meta"><div class="price">IDR 200.000</div><div class="tag">Banner</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CUSTOM ORDERS -->
+        <section id="customorders" class="section-wrapper reveal">
+          <div class="banner">
+            <div>Custom Orders — Buat Sesuai Keinginan</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.9)">Desain, ukuran, finishing</div>
+          </div>
+
+          <div class="category-products">
+            <div class="product" onclick="orderWA('Custom Order: Design A')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Custom Order — Design A</h4>
+              <div class="meta"><div class="price">IDR 250.000</div><div class="tag">Custom</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Custom Order: Corporate Set')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Corporate Custom Set</h4>
+              <div class="meta"><div class="price">IDR 750.000</div><div class="tag">B2B</div></div>
+            </div>
+
+            <div class="product" onclick="orderWA('Custom Order: Wedding Pack')">
+              <div class="thumb"><img src="" alt=""></div>
+              <h4>Wedding Pack</h4>
+              <div class="meta"><div class="price">IDR 650.000</div><div class="tag">Event</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <div class="footer-cta reveal">
+          <div>
+            <div style="font-weight:800">Jual di Matakayu.Art</div>
+            <div class="muted">Buka toko & jangkau ribuan pembeli</div>
+          </div>
+          <div>
+            <button class="btn btn-primary" onclick="openSeller()">Become Seller</button>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button class="backtop hidden" id="backTop" title="Back to top" onclick="scrollToTop()">⬆</button>
+
+<script>
+  // === CONFIG ===
+  const waNumber = "6282384703232"; // <-- Ganti ke nomor WhatsApp kamu (format internasional tanpa +)
+
+  // Order via WA
+  function orderWA(product){
+    const text = `Halo Matakayu.Art, saya ingin memesan *${product}*. Mohon info harga & estimasi produksi.`;
+    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+  }
+
+  function openCustom(){
+    const text = "Halo, saya ingin membuat custom order.";
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, "_blank");
+  }
+
+  function openSeller(){
+    alert("Demo: buka halaman Seller Dashboard (fitur demo).");
+  }
+
+  // Smooth scroll to section via data-target or id
+  function goToSection(targetId){
+    const el = document.getElementById(targetId);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // Back to top
+  function scrollToTop(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // Sidebar click behavior
+  document.querySelectorAll('.cat').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = btn.getAttribute('data-target');
+      if(target) goToSection(target);
+    });
+  });
+
+  // Active category highlight on scroll (intersection observer)
+  const sections = Array.from(document.querySelectorAll('section[id], #all'));
+  const sidebarCats = Array.from(document.querySelectorAll('.cat'));
+  const sectionMap = new Map(); // id -> element
+  sections.forEach(s=>{
+    const id = s.id || 'all';
+    sectionMap.set(id, s);
+  });
+
+  const obsOptions = {root:null,rootMargin:'-20% 0px -50% 0px',threshold:0};
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.id || 'all';
+        // update active class
+        sidebarCats.forEach(c=>{
+          c.classList.toggle('active', c.getAttribute('data-target') === id);
+        });
+        history.replaceState(null,'',`#${id}`);
+      }
+    });
+  }, obsOptions);
+
+  // Observe top "all" as element
+  const allEl = document.getElementById('all');
+  if(allEl) observer.observe(allEl);
+  document.querySelectorAll('section[id]').forEach(s=>observer.observe(s));
+
+  // reveal on scroll for subtle animations
+  const revealEls = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target);}
+    });
+  }, {threshold:0.08});
+  revealEls.forEach(el=>ro.observe(el));
+
+  // Back to top show/hide
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY > 600) backTop.classList.remove('hidden'); else backTop.classList.add('hidden');
+  });
+
+
+  // Accessibility: allow keyboard navigation for category items
+  document.querySelectorAll('.cat').forEach(el=>{
+    el.setAttribute('tabindex','0');
+    el.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' ') el.click();
+    });
+  });
+
+  // Optional: prefill thumbnails (placeholder gray) - user can replace src attributes
+  document.querySelectorAll('.thumb img').forEach(img=>{
+    if(!img.getAttribute('src')) {
+      img.style.opacity = '.12';
+      img.style.filter = 'grayscale(.1)';
+      img.alt = 'placeholder';
+    }
+  });
+
+</script>
+</body>
+</html>
