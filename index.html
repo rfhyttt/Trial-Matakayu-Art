@@ -139,6 +139,23 @@
   .price{color:var(--accent);font-weight:700}
   .tag{background:#f6f8fa;padding:6px 8px;border-radius:10px;color:var(--muted);font-size:12px}
 
+  #all .products {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+#all .products::-webkit-scrollbar {
+  display: none;
+}
+
+#all .product {
+  min-width: 70%;
+  scroll-snap-align: start;
+}
+
   /* CATEGORY SECTION - MOBILE: horizontal scroll (B2: medium cards) */
   .category-products{
     display:flex;
